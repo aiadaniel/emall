@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vigorous.common.mapper.ItemMapper">
+  <resultMap id="BaseResultMap" type="com.vigorous.common.model.Item">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="shopid" jdbcType="INTEGER" property="shopid" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="picurls" jdbcType="VARCHAR" property="picurls" />
+    <result column="item_type" jdbcType="SMALLINT" property="itemType" />
+    <result column="fenxiao_type" jdbcType="BIT" property="fenxiaoType" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+    <result column="item_weight" jdbcType="DECIMAL" property="itemWeight" />
+    <result column="item_no" jdbcType="VARCHAR" property="itemNo" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="sold_num" jdbcType="INTEGER" property="soldNum" />
+    <result column="is_hide_stock" jdbcType="BIT" property="isHideStock" />
+    <result column="original_price" jdbcType="BIGINT" property="originalPrice" />
+    <result column="is_level_discount" jdbcType="BIT" property="isLevelDiscount" />
+    <result column="post_type" jdbcType="BIT" property="postType" />
+    <result column="post_fee" jdbcType="INTEGER" property="postFee" />
+    <result column="delivery_template_id" jdbcType="INTEGER" property="deliveryTemplateId" />
+    <result column="is_listing" jdbcType="BIT" property="isListing" />
+    <result column="order" jdbcType="INTEGER" property="order" />
+    <result column="auto_listing_time" jdbcType="TIMESTAMP" property="autoListingTime" />
+    <result column="is_lock" jdbcType="BIT" property="isLock" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="etd_status" jdbcType="BIT" property="etdStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, alias, shopid, gmt_create, gmt_update, status, title, summary, cid, picurls, 
+    item_type, fenxiao_type, price, item_weight, item_no, quantity, sold_num, is_hide_stock, 
+    original_price, is_level_discount, post_type, post_fee, delivery_template_id, is_listing, 
+    order, auto_listing_time, is_lock, message, etd_status
+  </sql>
+  <select id="selectByExample" parameterType="com.vigorous.common.model.ItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vigorous.common.model.ItemExample">
+    delete from item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vigorous.common.model.Item">
+    insert into item (id, alias, shopid, 
+      gmt_create, gmt_update, status, 
+      title, summary, cid, 
+      picurls, item_type, fenxiao_type, 
+      price, item_weight, item_no, 
+      quantity, sold_num, is_hide_stock, 
+      original_price, is_level_discount, post_type, 
+      post_fee, delivery_template_id, is_listing, 
+      order, auto_listing_time, is_lock, 
+      message, etd_status)
+    values (#{id,jdbcType=INTEGER}, #{alias,jdbcType=VARCHAR}, #{shopid,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT}, 
+      #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{cid,jdbcType=INTEGER}, 
+      #{picurls,jdbcType=VARCHAR}, #{itemType,jdbcType=SMALLINT}, #{fenxiaoType,jdbcType=BIT}, 
+      #{price,jdbcType=BIGINT}, #{itemWeight,jdbcType=DECIMAL}, #{itemNo,jdbcType=VARCHAR}, 
+      #{quantity,jdbcType=INTEGER}, #{soldNum,jdbcType=INTEGER}, #{isHideStock,jdbcType=BIT}, 
+      #{originalPrice,jdbcType=BIGINT}, #{isLevelDiscount,jdbcType=BIT}, #{postType,jdbcType=BIT}, 
+      #{postFee,jdbcType=INTEGER}, #{deliveryTemplateId,jdbcType=INTEGER}, #{isListing,jdbcType=BIT}, 
+      #{order,jdbcType=INTEGER}, #{autoListingTime,jdbcType=TIMESTAMP}, #{isLock,jdbcType=BIT}, 
+      #{message,jdbcType=VARCHAR}, #{etdStatus,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vigorous.common.model.Item">
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="shopid != null">
+        shopid,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="picurls != null">
+        picurls,
+      </if>
+      <if test="itemType != null">
+        item_type,
+      </if>
+      <if test="fenxiaoType != null">
+        fenxiao_type,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="itemWeight != null">
+        item_weight,
+      </if>
+      <if test="itemNo != null">
+        item_no,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="soldNum != null">
+        sold_num,
+      </if>
+      <if test="isHideStock != null">
+        is_hide_stock,
+      </if>
+      <if test="originalPrice != null">
+        original_price,
+      </if>
+      <if test="isLevelDiscount != null">
+        is_level_discount,
+      </if>
+      <if test="postType != null">
+        post_type,
+      </if>
+      <if test="postFee != null">
+        post_fee,
+      </if>
+      <if test="deliveryTemplateId != null">
+        delivery_template_id,
+      </if>
+      <if test="isListing != null">
+        is_listing,
+      </if>
+      <if test="order != null">
+        order,
+      </if>
+      <if test="autoListingTime != null">
+        auto_listing_time,
+      </if>
+      <if test="isLock != null">
+        is_lock,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+      <if test="etdStatus != null">
+        etd_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="picurls != null">
+        #{picurls,jdbcType=VARCHAR},
+      </if>
+      <if test="itemType != null">
+        #{itemType,jdbcType=SMALLINT},
+      </if>
+      <if test="fenxiaoType != null">
+        #{fenxiaoType,jdbcType=BIT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="itemWeight != null">
+        #{itemWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="itemNo != null">
+        #{itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="soldNum != null">
+        #{soldNum,jdbcType=INTEGER},
+      </if>
+      <if test="isHideStock != null">
+        #{isHideStock,jdbcType=BIT},
+      </if>
+      <if test="originalPrice != null">
+        #{originalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="isLevelDiscount != null">
+        #{isLevelDiscount,jdbcType=BIT},
+      </if>
+      <if test="postType != null">
+        #{postType,jdbcType=BIT},
+      </if>
+      <if test="postFee != null">
+        #{postFee,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTemplateId != null">
+        #{deliveryTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="isListing != null">
+        #{isListing,jdbcType=BIT},
+      </if>
+      <if test="order != null">
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="autoListingTime != null">
+        #{autoListingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLock != null">
+        #{isLock,jdbcType=BIT},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="etdStatus != null">
+        #{etdStatus,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.vigorous.common.model.ItemExample" resultType="java.lang.Long">
+    select count(*) from item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.alias != null">
+        alias = #{record.alias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopid != null">
+        shopid = #{record.shopid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtUpdate != null">
+        gmt_update = #{record.gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null">
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null">
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.picurls != null">
+        picurls = #{record.picurls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemType != null">
+        item_type = #{record.itemType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.fenxiaoType != null">
+        fenxiao_type = #{record.fenxiaoType,jdbcType=BIT},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemWeight != null">
+        item_weight = #{record.itemWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemNo != null">
+        item_no = #{record.itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.soldNum != null">
+        sold_num = #{record.soldNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.isHideStock != null">
+        is_hide_stock = #{record.isHideStock,jdbcType=BIT},
+      </if>
+      <if test="record.originalPrice != null">
+        original_price = #{record.originalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.isLevelDiscount != null">
+        is_level_discount = #{record.isLevelDiscount,jdbcType=BIT},
+      </if>
+      <if test="record.postType != null">
+        post_type = #{record.postType,jdbcType=BIT},
+      </if>
+      <if test="record.postFee != null">
+        post_fee = #{record.postFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryTemplateId != null">
+        delivery_template_id = #{record.deliveryTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isListing != null">
+        is_listing = #{record.isListing,jdbcType=BIT},
+      </if>
+      <if test="record.order != null">
+        order = #{record.order,jdbcType=INTEGER},
+      </if>
+      <if test="record.autoListingTime != null">
+        auto_listing_time = #{record.autoListingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isLock != null">
+        is_lock = #{record.isLock,jdbcType=BIT},
+      </if>
+      <if test="record.message != null">
+        message = #{record.message,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etdStatus != null">
+        etd_status = #{record.etdStatus,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update item
+    set id = #{record.id,jdbcType=INTEGER},
+      alias = #{record.alias,jdbcType=VARCHAR},
+      shopid = #{record.shopid,jdbcType=INTEGER},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{record.gmtUpdate,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=BIT},
+      title = #{record.title,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=INTEGER},
+      picurls = #{record.picurls,jdbcType=VARCHAR},
+      item_type = #{record.itemType,jdbcType=SMALLINT},
+      fenxiao_type = #{record.fenxiaoType,jdbcType=BIT},
+      price = #{record.price,jdbcType=BIGINT},
+      item_weight = #{record.itemWeight,jdbcType=DECIMAL},
+      item_no = #{record.itemNo,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      sold_num = #{record.soldNum,jdbcType=INTEGER},
+      is_hide_stock = #{record.isHideStock,jdbcType=BIT},
+      original_price = #{record.originalPrice,jdbcType=BIGINT},
+      is_level_discount = #{record.isLevelDiscount,jdbcType=BIT},
+      post_type = #{record.postType,jdbcType=BIT},
+      post_fee = #{record.postFee,jdbcType=INTEGER},
+      delivery_template_id = #{record.deliveryTemplateId,jdbcType=INTEGER},
+      is_listing = #{record.isListing,jdbcType=BIT},
+      order = #{record.order,jdbcType=INTEGER},
+      auto_listing_time = #{record.autoListingTime,jdbcType=TIMESTAMP},
+      is_lock = #{record.isLock,jdbcType=BIT},
+      message = #{record.message,jdbcType=VARCHAR},
+      etd_status = #{record.etdStatus,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vigorous.common.model.Item">
+    update item
+    <set>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null">
+        shopid = #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="picurls != null">
+        picurls = #{picurls,jdbcType=VARCHAR},
+      </if>
+      <if test="itemType != null">
+        item_type = #{itemType,jdbcType=SMALLINT},
+      </if>
+      <if test="fenxiaoType != null">
+        fenxiao_type = #{fenxiaoType,jdbcType=BIT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="itemWeight != null">
+        item_weight = #{itemWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="itemNo != null">
+        item_no = #{itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="soldNum != null">
+        sold_num = #{soldNum,jdbcType=INTEGER},
+      </if>
+      <if test="isHideStock != null">
+        is_hide_stock = #{isHideStock,jdbcType=BIT},
+      </if>
+      <if test="originalPrice != null">
+        original_price = #{originalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="isLevelDiscount != null">
+        is_level_discount = #{isLevelDiscount,jdbcType=BIT},
+      </if>
+      <if test="postType != null">
+        post_type = #{postType,jdbcType=BIT},
+      </if>
+      <if test="postFee != null">
+        post_fee = #{postFee,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTemplateId != null">
+        delivery_template_id = #{deliveryTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="isListing != null">
+        is_listing = #{isListing,jdbcType=BIT},
+      </if>
+      <if test="order != null">
+        order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="autoListingTime != null">
+        auto_listing_time = #{autoListingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLock != null">
+        is_lock = #{isLock,jdbcType=BIT},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="etdStatus != null">
+        etd_status = #{etdStatus,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vigorous.common.model.Item">
+    update item
+    set alias = #{alias,jdbcType=VARCHAR},
+      shopid = #{shopid,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=BIT},
+      title = #{title,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      picurls = #{picurls,jdbcType=VARCHAR},
+      item_type = #{itemType,jdbcType=SMALLINT},
+      fenxiao_type = #{fenxiaoType,jdbcType=BIT},
+      price = #{price,jdbcType=BIGINT},
+      item_weight = #{itemWeight,jdbcType=DECIMAL},
+      item_no = #{itemNo,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      sold_num = #{soldNum,jdbcType=INTEGER},
+      is_hide_stock = #{isHideStock,jdbcType=BIT},
+      original_price = #{originalPrice,jdbcType=BIGINT},
+      is_level_discount = #{isLevelDiscount,jdbcType=BIT},
+      post_type = #{postType,jdbcType=BIT},
+      post_fee = #{postFee,jdbcType=INTEGER},
+      delivery_template_id = #{deliveryTemplateId,jdbcType=INTEGER},
+      is_listing = #{isListing,jdbcType=BIT},
+      order = #{order,jdbcType=INTEGER},
+      auto_listing_time = #{autoListingTime,jdbcType=TIMESTAMP},
+      is_lock = #{isLock,jdbcType=BIT},
+      message = #{message,jdbcType=VARCHAR},
+      etd_status = #{etdStatus,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+</mapper>
