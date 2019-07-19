@@ -1,9 +1,14 @@
+
 spring:
   application:
     name: emall-portal-service
-# 该项配置在springboot和springcloud版本不兼容时启用
-#  main:
-#    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.128.128:8848
+  # 该项配置在springboot和springcloud版本不兼容时启用
+  #  main:
+  #    allow-bean-definition-overriding: true
   datasource:
     url:  jdbc:mysql://dbserver1:3306/emall?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&maxReconnects=15000&allowMultiQueries=true&useSSL=false
     username: root
@@ -20,10 +25,11 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
 
-eureka:
-  client:
-    service-url:
-      defaultZone:  http://localhost:8761/eureka/
+
+  #eureka:
+  #  client:
+  #    service-url:
+  #      defaultZone:  http://localhost:8761/eureka/
 
   # 目前hikari性能测试明显优于druid
   #druid:

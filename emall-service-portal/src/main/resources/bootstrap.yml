@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: emall-portal-service
+
+server:
+  port: ${web.server.port:9999}

@@ -21,6 +21,10 @@ spring:
   mvc:
     view:
       suffix: .html
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.128.128:8848
 # swagger2
 #swagger2.package: com.vigorous.emall.portal.controller
 
